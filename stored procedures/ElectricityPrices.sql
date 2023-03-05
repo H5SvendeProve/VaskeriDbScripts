@@ -34,3 +34,15 @@ as
 
     end
 GO
+
+
+create procedure GetAllElectricityPrices
+
+as
+    begin
+    set nocount on;
+
+    select DKKPerKwh, EURPerKWh, Exr, TimeStart, TimeEnd, Location from ElectricityPrices;
+
+    end
+GO

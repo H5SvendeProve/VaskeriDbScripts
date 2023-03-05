@@ -13,3 +13,12 @@ CREATE TABLE ElectricityPrices (
     Location nvarchar(50) NOT NULL
 	constraint PK_ElectricityPrices PRIMARY KEY (Exr, TimeStart, TimeEnd, Location)
 );
+
+
+CREATE TABLE Users (
+    Username nvarchar(16) NOT NULL,
+    Password nvarchar (1024) NOT NULL,
+    PasswordSalt nvarchar (256) NOT NULL,
+    UserRole nvarchar (16) NOT NULL,
+	constraint PK_Users PRIMARY KEY (Username)
+);
