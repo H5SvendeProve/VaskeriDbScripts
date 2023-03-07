@@ -7,7 +7,6 @@ CREATE PROCEDURE InsertElectricityPrice
     @Location nvarchar(50)
 AS
 BEGIN
-    SET NOCOUNT ON;
 
 	if not exists (select * from ElectricityPrices where Exr = @Exr and TimeStart = @TimeStart and TimeEnd = @TimeEnd and Location = @Location)
 

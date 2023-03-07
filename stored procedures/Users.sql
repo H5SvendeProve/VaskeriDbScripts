@@ -1,9 +1,9 @@
-
 CREATE PROCEDURE InsertUser
     @Username nvarchar(16),
     @Password nvarchar(1024),
     @PasswordSalt nvarchar(256),
-    @UserRole nvarchar(16)
+    @UserRole nvarchar(16),
+	@DepartmentName nvarchar(128)
 AS
 BEGIN
 
@@ -12,8 +12,8 @@ BEGIN
 	begin
 
     -- Insert the new user
-    INSERT INTO Users (Username, Password, PasswordSalt, UserRole)
-    VALUES (@Username, @Password, @PasswordSalt, @UserRole);
+    INSERT INTO Users (Username, Password, PasswordSalt, UserRole, DepartmentName)
+    VALUES (@Username, @Password, @PasswordSalt, @UserRole, @DepartmentName);
 
 	end
 
