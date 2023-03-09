@@ -1,9 +1,4 @@
-
 CREATE DATABASE VaskeriDb;
-
-
-use VaskeriDb;
-
 
 
 CREATE TABLE ElectricityPrices (
@@ -71,11 +66,7 @@ CREATE TABLE Machines (
     MachineManufacturer nvarchar(64) NOT NULL,
     ModelName nvarchar(64) NOT NULL,
     EffectKWh float NOT NULL,
-    MasterArduinoId nvarchar(36) NOT NULL,
-    CONSTRAINT PK_Machines PRIMARY KEY (MachineManufacturer, ModelName),
-    CONSTRAINT FK_Machines_MasterArduinos FOREIGN KEY (MasterArduinoId)
-        REFERENCES MasterArduinos (MasterArduinoId)
-        ON DELETE CASCADE
+    CONSTRAINT PK_Machines PRIMARY KEY (MachineManufacturer, ModelName)
 );
 
 CREATE TABLE ArduinoMachines (
@@ -111,3 +102,35 @@ CREATE TABLE MachinePrograms (
         ON DELETE CASCADE,
     CONSTRAINT PK_MachinePrograms PRIMARY KEY (MachineManufacturer, ModelName, ProgramId)
 );
+
+
+CREATE TABLE Bookings (
+	BookingId int identity (1,1) NOT NULL,
+	Username nvarchar (16) NOT NULL,
+	Price decimal (19,4) NOT NULL,
+	StartTime DateTime NOT NULL,
+	EndTime DateTime NOT NULL,
+	ProgramId int NOT NULL,
+	MachineManufacturer nvarchar (64) NOT NULL,
+	ModelName nvarchar (64) NOT NULL,
+	CONSTRAINT PK_Bookings PRIMARY KEY (BookingId),
+    CONSTRAINT FK_Users FOREIGN KEY (UserName)
+    REFERENCES Users (Username)
+	ON DELETE NO ACTION,
+	CONSTRAINT FK_MachinePrograms FOREIGN KEY (MachineManufacturer, ModelName, ProgramId)
+	REFERENCES MachinePrograms (MachineManufacturer, ModelName, ProgramId)
+	ON DELETE NO ACTION
+);
+
+create table RfidCards (
+
+	RfidCardId nvarchar (32),
+	
+	Username nvarchar (16)
+
+	constraint PK_RfidCards primary key (RfidcardId),
+	CONSTRAINT FK_Users_RfidCards FOREIGN KEY (UserName)
+    REFERENCES Users (Username)
+	ON DELETE CASCADE
+);
+

@@ -17,3 +17,26 @@ BEGIN
     INSERT INTO MachinePrograms (MachineManufacturer, ModelName, ProgramId)
     VALUES (@MachineManufacturer, @ModelName, @ProgramId)
 END
+
+CREATE PROCEDURE GetMachineProgram 
+
+	@ProgramId int,
+	@MachineManufacturer nvarchar (64),
+	@ModelName nvarchar(64)
+
+AS
+
+begin
+
+	set NOCOUNT ON;
+
+
+	select p.ProgramId, p.ProgramName, p.ProgramRunTimeMinutes, m.MachineManufacturer, m.ModelName, m.EffectKWh
+	from MachinePrograms mp
+	inner join Programs p
+	on mp.ProgramId = p.ProgramId
+	inner join Machines m
+	on mp.MachineManufacturer = m.MachineManufacturer and mp.ModelName = m.ModelName
+	where p.ProgramId = @ProgramId and m.MachineManufacturer = @MachineManufacturer and m.ModelName = @Modelname
+
+end
